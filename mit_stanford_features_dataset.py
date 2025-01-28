@@ -7,7 +7,7 @@ import torch
 from scipy import stats
 from torch.nn.utils.rnn import pad_sequence
 from torch.utils.data import Dataset
-
+from itertools import islice
 
 class MITStanfordFeaturesDataset(Dataset):
   def __init__(self, 
@@ -15,8 +15,10 @@ class MITStanfordFeaturesDataset(Dataset):
                data_keys, 
                min_curve_len=100, 
                future_interval=1, 
-               x_seq_len=2500, 
-               y_seq_len=2500,
+               #x_seq_len=2500,
+               #y_seq_len=2500,
+               x_seq_len=500,
+               y_seq_len=500,
                downsample_ratio=1,
                input_ratio=None,
                curve_ratio=1,
@@ -35,10 +37,11 @@ class MITStanfordFeaturesDataset(Dataset):
     self.curve_ratio = curve_ratio
     self.preprocessed_curve_ratio_idx = preprocessed_curve_ratio_idx
     self.start_ratio = start_ratio
-    
+
+    fraction = 0.1  # Cargar solo el 10% de los datos
     self.data = pickle.load(open(os.path.join(self.data_dir_path, 'preprocessed_data.pkl'), 'rb'))
     self.load_data()
-    
+
   def load_data(self):
     self.padded_x, self.padded_x_feat, self.padded_y, self.padded_y_feat, self.x_lens, self.y_lens, self.padded_time_deltas, self.battery_idxs, self.battery_stats, self.battery_data_sizes = self._prepare_seq_data()
     

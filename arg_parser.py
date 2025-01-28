@@ -5,10 +5,12 @@ from datetime import datetime
 def parse_args():
   arg_parser = argparse.ArgumentParser()
   arg_parser.add_argument("--exp_name", type=str, help="Experiment name", default=datetime.now().strftime('%Y%m%d_%H%M%S'))
-  arg_parser.add_argument("--client_batch_size", type=int, help="Batch size in client training", default=256)
+  #arg_parser.add_argument("--client_batch_size", type=int, help="Batch size in client training", default=256)
+  arg_parser.add_argument("--client_batch_size", type=int, help="Batch size in client training", default=2)
   arg_parser.add_argument("--client_epochs", type=int, help="Epoch of local client training", default=30)
   arg_parser.add_argument("--client_learning_rate", type=float, help="Learning rate in client training", default=0.001)
-  arg_parser.add_argument("--val_batch_size", type=int, help="Batch size in server validation", default=256)
+  #arg_parser.add_argument("--val_batch_size", type=int, help="Batch size in server validation", default=256)
+  arg_parser.add_argument("--val_batch_size", type=int, help="Batch size in server validation", default=2)
   arg_parser.add_argument("--data_dir", type=str, help="Directory of data", default="data/MIT Stanford battery dataset/")
   arg_parser.add_argument("--min_curve_len", type=int, help="Minimum length of input degradation curve", default=100)
   arg_parser.add_argument("--downsample_ratio", type=float, help="Downsample ratio of input degradation curve", default=1)
@@ -24,7 +26,8 @@ def parse_args():
   
   arg_parser.add_argument("--train_baseline", action="store_true", help="Enable training baseline model")
   arg_parser.add_argument("--baseline_epoch", type=int, help="Number of epochs for baseline training", default=50)
-  arg_parser.add_argument("--baseline_batch_size", type=int, help="Batch size for baseline training", default=256)
+  #arg_parser.add_argument("--baseline_batch_size", type=int, help="Batch size for baseline training", default=256)
+  arg_parser.add_argument("--baseline_batch_size", type=int, help="Batch size for baseline training", default=2)
   arg_parser.add_argument("--baseline_learning_rate", type=float, help="Learning rate for baseline training", default=0.001)
   
   arg_parser.add_argument("--encoder_hidden_dim", type=int, help="Encoder hidden layer dimension", default=64)
